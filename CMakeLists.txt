@@ -16,15 +16,35 @@ endif()
 # find dependencies
 find_package(ament_cmake REQUIRED)
 
+##################################
 # vitis_common header-only library
-add_library(${PROJECT_NAME} INTERFACE)
-target_include_directories(${PROJECT_NAME} INTERFACE
+##################################
+add_library(${PROJECT_NAME}_header INTERFACE)
+target_include_directories(${PROJECT_NAME}_header INTERFACE
   "$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>"
   "$<INSTALL_INTERFACE:include>"
 )
-target_link_libraries(${PROJECT_NAME} INTERFACE)
+target_link_libraries(${PROJECT_NAME}_header INTERFACE)
 
-install(TARGETS ${PROJECT_NAME}
+
+##################################
+# vitis_common library
+##################################
+
+add_library(${PROJECT_NAME}
+  src/utilities.cpp
+)
+target_include_directories(${PROJECT_NAME} PRIVATE
+    include/
+    # "$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>"
+    # "$<INSTALL_INTERFACE:include>"    
+)
+# target_link_libraries(${PROJECT_NAME} ${CMAKE_THREAD_LIBS_INIT})
+# ament_target_dependencies(${PROJECT_NAME}
+#   ${PROJECT_NAME}
+# )
+
+install(TARGETS ${PROJECT_NAME}_header ${PROJECT_NAME}
   EXPORT "export_${PROJECT_NAME}"
   ARCHIVE DESTINATION lib
   LIBRARY DESTINATION lib
@@ -39,12 +59,6 @@ install(
 
 if(BUILD_TESTING)
   find_package(ament_lint_auto REQUIRED)
-  # the following line skips the linter which checks for copyrights
-  # uncomment the line when a copyright and license is not present in all source files
-  #set(ament_cmake_copyright_FOUND TRUE)
-  # the following line skips cpplint (only works in a git repo)
-  # uncomment the line when this package is not in a git repo
-  #set(ament_cmake_cpplint_FOUND TRUE)
   ament_lint_auto_find_test_dependencies()
 endif()
 
