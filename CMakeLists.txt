@@ -31,7 +31,7 @@ target_link_libraries(${PROJECT_NAME}_header INTERFACE)
 # vitis_common library
 ##################################
 
-add_library(${PROJECT_NAME}
+add_library(${PROJECT_NAME} SHARED
   src/utilities.cpp
 )
 target_include_directories(${PROJECT_NAME} PRIVATE
