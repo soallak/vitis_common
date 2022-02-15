@@ -15,6 +15,7 @@ endif()
 
 # find dependencies
 find_package(ament_cmake REQUIRED)
+find_package(OpenCL REQUIRED)
 
 ##################################
 # vitis_common header-only library
@@ -30,16 +31,15 @@ target_link_libraries(${PROJECT_NAME}_header INTERFACE)
 ##################################
 # vitis_common library
 ##################################
-
-add_library(${PROJECT_NAME}
+add_library(${PROJECT_NAME} SHARED
   src/utilities.cpp
 )
 target_include_directories(${PROJECT_NAME} PRIVATE
     include/
     # "$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>"
-    # "$<INSTALL_INTERFACE:include>"    
+    # "$<INSTALL_INTERFACE:include>"
 )
-# target_link_libraries(${PROJECT_NAME} ${CMAKE_THREAD_LIBS_INIT})
+target_link_libraries(${PROJECT_NAME} ${OpenCL_LIBRARY})
 # ament_target_dependencies(${PROJECT_NAME}
 #   ${PROJECT_NAME}
 # )

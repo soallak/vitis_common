@@ -12,6 +12,8 @@
 */
 
 #include "common/utilities.hpp"
+#include <dirent.h>
+// #include <sys/sysinfo.h>
 
 /**
  * @brief Get the xilinx devices object
@@ -65,4 +67,118 @@ char* read_binary_file(const std::string &xclbin_file_name, unsigned &nb) {  // 
     char *buf = new char[nb];
     bin_file.read(buf, nb);
     return buf;
+}
+
+
+/**
+ * @brief Returns the number of hwmon devices registered under /sys/class/hwmon
+ *
+ * @return       num_hwmon_devices: Number of registered hwmon devices
+ *
+ */
+int count_hwmon_reg_devices()
+{
+	//find number of hwmon devices listed under
+	int num_hwmon_devices;
+	DIR *d;
+	struct dirent *dir;
+
+	num_hwmon_devices = 0;
+	d = opendir("/sys/class/hwmon");
+
+	if(!d)
+	{
+		printf("Unable to open /sys/class/hwmon path\n");
+		return(errno);
+	}
+
+	while((dir = readdir(d)) != NULL)
+	{
+		if(strstr(dir->d_name, "hwmon"))
+		{
+			num_hwmon_devices++;
+		}
+	}
+
+	closedir(d);
+
+	return(num_hwmon_devices);
+}
+
+/**
+ * @brief Reads the sysfs enteries for a given sysfs file
+ *
+ * @param	filename: sysfs path
+ * @param	value: value read from sysfs entry
+ * @return       None
+ *
+ */
+int read_sysfs_entry(char* filename, char* value)
+{
+
+	FILE *fp;
+
+	fp = fopen(filename,"r");
+
+	if(fp == NULL)
+	{
+		printf("Unable to open %s\n",filename);
+		return(errno);
+	}
+
+	fscanf(fp,"%s",value);
+
+	return(0);
+
+}
+
+/**
+ * @brief Returns hwmon_id of the specified device:
+ *
+ * @param        name: device name for which hwmon_id needs to be identified
+ * @return       hwmon_id int value
+ *
+ */
+int get_device_hwmon_id(int verbose_flag, const char* name)
+{
+	//find number of hwmon devices listed under
+	int num_hwmon_devices,hwmon_id;
+	char hwmon_id_str[50];
+	char *device_name;
+	char *filename;
+
+  // TODO: Consider move syntax to C++
+  // e.g.:
+  // char *filename = new char[255];
+  // delete [] filename;
+
+	filename = (char*) malloc(255);
+	device_name = (char*) malloc(255);
+
+	hwmon_id=-1;
+	num_hwmon_devices = count_hwmon_reg_devices();
+
+	for(hwmon_id = 0; hwmon_id < num_hwmon_devices; hwmon_id++)
+	{
+		sprintf(hwmon_id_str,"%d",hwmon_id);
+		strcpy(filename,"/sys/class/hwmon/hwmon");
+		strcat(filename,hwmon_id_str);
+		strcat(filename,"/name");
+		read_sysfs_entry(filename,device_name);
+
+		if(!strcmp(name,device_name))
+		{
+			return(hwmon_id);
+		}
+
+		if(verbose_flag)
+		{
+			printf("filename %s\n",filename);
+			printf("device_name = %s\n",device_name);
+		}
+	}
+
+	free(filename);
+	free(device_name);
+	return(-1);
 }
