@@ -16,8 +16,8 @@
     limitations under the License.
 */
 
-#ifndef IMAGE_PIPELINE_VITIS_COMMON_INCLUDE_COMMON_ROS_OPENCL_120_HPP_
-#define IMAGE_PIPELINE_VITIS_COMMON_INCLUDE_COMMON_ROS_OPENCL_120_HPP_
+#ifndef XILINX_VITIS_COMMON_INCLUDE_COMMON_ROS_OPENCL_120_HPP_
+#define XILINX_VITIS_COMMON_INCLUDE_COMMON_ROS_OPENCL_120_HPP_
 
 #define CL_HPP_CL_1_2_DEFAULT_BUILD
 #define CL_HPP_TARGET_OPENCL_VERSION 120
@@ -26,11 +26,13 @@
 #define CL_USE_DEPRECATED_OPENCL_1_2_APIS
 
 // OCL_CHECK doesn't work if call has templatized function call
-#define OCL_CHECK(error, call)                                                                            \
-    call;                                                                                                 \
-    if (error != CL_SUCCESS) {                                                                            \
-        fprintf(stderr, "%s:%d Error calling " #call ", error code is: %d\n", __FILE__, __LINE__, error); \
-        exit(EXIT_FAILURE);                                                                               \
+#define OCL_CHECK(error, call)  \
+    call;  \
+    if (error != CL_SUCCESS) {  \
+        fprintf(stderr,  \
+            "%s:%d Error calling " #call ", error code is: %d\n",  \
+            __FILE__, __LINE__, error);  \
+        exit(EXIT_FAILURE);  \
     }
 
 #include <unistd.h>
@@ -38,4 +40,4 @@
 #include <fstream>
 #include <CL/cl2.hpp>
 
-#endif  // IMAGE_PIPELINE_VITIS_COMMON_INCLUDE_COMMON_ROS_OPENCL_120_HPP_
+#endif  // XILINX_VITIS_COMMON_INCLUDE_COMMON_ROS_OPENCL_120_HPP_

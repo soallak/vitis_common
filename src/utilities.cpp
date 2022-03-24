@@ -13,6 +13,7 @@
 
 #include "common/utilities.hpp"
 #include <dirent.h>
+#include <cstring>
 // #include <sys/sysinfo.h>
 
 /**
@@ -52,7 +53,7 @@ std::vector<cl::Device> get_xilinx_devices() {
  * @param nb number of bytes
  * @return char* pointer to the loaded kernel
  */
-char* read_binary_file(const std::string &xclbin_file_name, unsigned &nb) {  // NOLINT
+char* read_binary_file(const std::string &xclbin_file_name, unsigned const &nb) {  // NOLINT
     if (access(xclbin_file_name.c_str(), R_OK) != 0) {
         printf("ERROR: %s xclbin not available please build\n",
           xclbin_file_name.c_str());
@@ -76,33 +77,27 @@ char* read_binary_file(const std::string &xclbin_file_name, unsigned &nb) {  // 
  * @return       num_hwmon_devices: Number of registered hwmon devices
  *
  */
-int count_hwmon_reg_devices()
-{
-	//find number of hwmon devices listed under
-	int num_hwmon_devices;
-	DIR *d;
-	struct dirent *dir;
+int count_hwmon_reg_devices() {
+    // find number of hwmon devices listed under
+    int num_hwmon_devices;
+    DIR *d;
+    struct dirent *dir;
 
-	num_hwmon_devices = 0;
-	d = opendir("/sys/class/hwmon");
+    num_hwmon_devices = 0;
+    d = opendir("/sys/class/hwmon");
 
-	if(!d)
-	{
-		printf("Unable to open /sys/class/hwmon path\n");
-		return(errno);
-	}
+    if (!d) {
+        printf("Unable to open /sys/class/hwmon path\n");
+        return(errno);
+    }
 
-	while((dir = readdir(d)) != NULL)
-	{
-		if(strstr(dir->d_name, "hwmon"))
-		{
-			num_hwmon_devices++;
-		}
-	}
-
-	closedir(d);
-
-	return(num_hwmon_devices);
+    while ((dir = readdir(d)) != NULL) {
+        if (strstr(dir->d_name, "hwmon")) {
+            num_hwmon_devices++;
+        }
+    }
+    closedir(d);
+    return(num_hwmon_devices);
 }
 
 /**
@@ -115,21 +110,17 @@ int count_hwmon_reg_devices()
  */
 int read_sysfs_entry(char* filename, char* value)
 {
+    FILE *fp;
+    fp = fopen(filename, "r");
 
-	FILE *fp;
+    if (fp == NULL) {
+        printf("Unable to open %s\n", filename);
+        return(errno);
+    }
 
-	fp = fopen(filename,"r");
-
-	if(fp == NULL)
-	{
-		printf("Unable to open %s\n",filename);
-		return(errno);
-	}
-
-	fscanf(fp,"%s",value);
-
-	return(0);
-
+    fscanf(fp, "%s", value);
+    fclose(fp);
+    return(0);
 }
 
 /**
@@ -141,44 +132,36 @@ int read_sysfs_entry(char* filename, char* value)
  */
 int get_device_hwmon_id(int verbose_flag, const char* name)
 {
-	//find number of hwmon devices listed under
-	int num_hwmon_devices,hwmon_id;
-	char hwmon_id_str[50];
-	char *device_name;
-	char *filename;
+    // find number of hwmon devices listed under
+    int num_hwmon_devices, hwmon_id;
+    char hwmon_id_str[50];
+    char *device_name;
+    char *filename;
 
-  // TODO: Consider move syntax to C++
-  // e.g.:
-  // char *filename = new char[255];
-  // delete [] filename;
+    filename = reinterpret_cast<char*>(malloc(255));
+    device_name = reinterpret_cast<char*>(malloc(255));
+    hwmon_id = -1;
+    num_hwmon_devices = count_hwmon_reg_devices();
 
-	filename = (char*) malloc(255);
-	device_name = (char*) malloc(255);
+    for (hwmon_id = 0; hwmon_id < num_hwmon_devices; hwmon_id++) {
+        snprintf(hwmon_id_str, sizeof(hwmon_id_str), "%d", hwmon_id);
+        snprintf(filename, 255 - strlen(filename), "/sys/class/hwmon/hwmon");
+        snprintf(filename + strlen(filename),
+            255 - strlen(filename), "%s", hwmon_id_str);
+        snprintf(filename + strlen(filename),
+            255 - strlen(filename), "%s", "/name");
+        read_sysfs_entry(filename, device_name);
 
-	hwmon_id=-1;
-	num_hwmon_devices = count_hwmon_reg_devices();
+        if (!strcmp(name, device_name)) {
+            return(hwmon_id);
+        }
 
-	for(hwmon_id = 0; hwmon_id < num_hwmon_devices; hwmon_id++)
-	{
-		sprintf(hwmon_id_str,"%d",hwmon_id);
-		strcpy(filename,"/sys/class/hwmon/hwmon");
-		strcat(filename,hwmon_id_str);
-		strcat(filename,"/name");
-		read_sysfs_entry(filename,device_name);
-
-		if(!strcmp(name,device_name))
-		{
-			return(hwmon_id);
-		}
-
-		if(verbose_flag)
-		{
-			printf("filename %s\n",filename);
-			printf("device_name = %s\n",device_name);
-		}
-	}
-
-	free(filename);
-	free(device_name);
-	return(-1);
+        if (verbose_flag) {
+            printf("filename %s\n", filename);
+            printf("device_name = %s\n", device_name);
+        }
+    }
+    free(filename);
+    free(device_name);
+    return(-1);
 }
