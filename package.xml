@@ -4,13 +4,13 @@
   <name>vitis_common</name>
   <version>0.3.0</version>
   <description>Common code for working with Vitis™ Unified Software Platform in ROS.</description>
-  <maintainer email="victorma@xilinx.com">Víctor Mayoral-Vilches</maintainer>  
+  <maintainer email="victor@accelerationrobotics.com">Víctor Mayoral-Vilches</maintainer>  
   <license>Apache 2.0</license>
 
   <url type="bugtracker">https://github.com/ros-acceleration/vitis_common/issues</url>
   <url type="repository">https://github.com/ros-acceleration/vitis_common</url>
 
-  <author>Víctor Mayoral-Vilches</author>
+  <author email="victor@accelerationrobotics.com">Víctor Mayoral-Vilches</author>
   <buildtool_depend>ament_cmake</buildtool_depend>
   <buildtool_depend>ament_vitis</buildtool_depend>
 
