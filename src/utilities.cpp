@@ -53,7 +53,7 @@ std::vector<cl::Device> get_xilinx_devices() {
  * @param nb number of bytes
  * @return char* pointer to the loaded kernel
  */
-char* read_binary_file(const std::string &xclbin_file_name, unsigned const &nb) {  // NOLINT
+char* read_binary_file(const std::string &xclbin_file_name, unsigned &nb) {  // NOLINT
     if (access(xclbin_file_name.c_str(), R_OK) != 0) {
         printf("ERROR: %s xclbin not available please build\n",
           xclbin_file_name.c_str());
