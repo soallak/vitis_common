@@ -2,6 +2,14 @@
 Changelog for package vitis_common
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+0.4.0 (2022-03-24)
+------------------
+* Release 0.4.0
+* cpplint and cppcheck utilities and OpenCL header
+* Add OpenCL dependencies
+* Add license file
+* Add author's e-mail tag
+
 0.3.0 (2022-03-24)
 ------------------
 * Release 0.3.0
