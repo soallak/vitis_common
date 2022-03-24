@@ -24,7 +24,7 @@
 #include "hls_stream.h"
 #include "../common/xf_common.hpp"
 #include "../common/xf_utility.hpp"
-#include "imgproc/xf_histogram.hpp"
+#include "xf_histogram.hpp"
 
 /**
  *  xfEqualize : Computes the histogram and performs

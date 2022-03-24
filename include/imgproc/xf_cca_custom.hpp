@@ -18,8 +18,8 @@
 #define __XF_CCA_CUSTOM_HPP__
 
 #include "ap_int.h"
-#include "common/xf_common.hpp"
-#include "common/xf_utility.hpp"
+#include "../common/xf_common.hpp"
+#include "../common/xf_utility.hpp"
 
 namespace xf {
 namespace cv {

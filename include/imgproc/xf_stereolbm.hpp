@@ -24,7 +24,7 @@
 #include "hls_stream.h"
 #include "../common/xf_common.hpp"
 #include "../common/xf_utility.hpp"
-#include "imgproc/xf_sobel.hpp"
+#include "xf_sobel.hpp"
 
 #define __XF_MIN(a, b) a < b ? a : b
 

@@ -29,7 +29,7 @@ typedef unsigned char uchar;
 #include "../common/xf_utility.hpp"
 
 #include "../core/xf_math.h"
-//#include "imgproc/xf_sobel.hpp"
+//#include "xf_sobel.hpp"
 #include "xf_canny_sobel.hpp"
 #include "xf_averagegaussianmask.hpp"
 #include "xf_magnitude.hpp"

@@ -16,7 +16,7 @@
 
 #include "hls_stream.h"
 #include "ap_int.h"
-#include "common/xf_common.hpp"
+#include "../common/xf_common.hpp"
 
 namespace xf {
 namespace cv {

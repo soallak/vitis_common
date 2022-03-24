@@ -21,7 +21,7 @@
 #include "hls_stream.h"
 #include "../common/xf_common.hpp"
 #include "../common/xf_utility.hpp"
-#include "imgproc/xf_duplicateimage.hpp"
+#include "xf_duplicateimage.hpp"
 #include "hls_math.h"
 #include <type_traits>
 

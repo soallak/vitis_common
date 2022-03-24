@@ -20,7 +20,7 @@
 #include "hls_stream.h"
 #include "ap_int.h"
 #include "../common/xf_common.hpp"
-#include "imgproc/xf_pyr_down_gaussian_blur.hpp"
+#include "xf_pyr_down_gaussian_blur.hpp"
 
 namespace xf {
 namespace cv {

@@ -20,7 +20,7 @@
 #include "../common/xf_common.hpp"
 #include "../common/xf_utility.hpp"
 #include "hls_stream.h"
-#include "imgproc/xf_inrange.hpp"
+#include "xf_inrange.hpp"
 
 typedef unsigned short uint16_t;
 

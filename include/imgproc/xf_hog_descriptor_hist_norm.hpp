@@ -21,8 +21,8 @@
 #error C++ is needed to include this header
 #endif
 
-#include "imgproc/xf_hog_descriptor_compute_hist.hpp"
-#include "imgproc/xf_hog_descriptor_norm.hpp"
+#include "xf_hog_descriptor_compute_hist.hpp"
+#include "xf_hog_descriptor_norm.hpp"
 
 /*******************************************************************************
  * 						 xFDHOGDescriptorKernel

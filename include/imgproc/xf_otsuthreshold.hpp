@@ -19,7 +19,7 @@
 
 #include "../common/xf_types.hpp"
 #include "../core/xf_math.h"
-#include "imgproc/xf_histogram.hpp"
+#include "xf_histogram.hpp"
 
 namespace xf {
 namespace cv {

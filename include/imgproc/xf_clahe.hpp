@@ -18,12 +18,12 @@
 #define _XF_CLAHE_HPP_
 
 #include "ap_int.h"
-#include "common/xf_common.hpp"
-#include "common/xf_utility.hpp"
+#include "../common/xf_common.hpp"
+#include "../common/xf_utility.hpp"
 #include "algorithm"
 #include "hls_math.h"
 #include "hls_stream.h"
-#include "imgproc/xf_duplicateimage.hpp"
+#include "xf_duplicateimage.hpp"
 #include <type_traits>
 
 namespace xf {

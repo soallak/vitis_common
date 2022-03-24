@@ -18,7 +18,7 @@
 #define _XF_FLIP_HPP_
 
 #include "hls_stream.h"
-#include "common/xf_common.hpp"
+#include "../common/xf_common.hpp"
 #include <iostream>
 
 namespace xf {

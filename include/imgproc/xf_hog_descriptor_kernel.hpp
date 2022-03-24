@@ -26,10 +26,10 @@
 #include "../common/xf_utility.hpp"
 #include "../core/xf_math.h"
 
-#include "imgproc/xf_hog_descriptor_utility.hpp"
-#include "imgproc/xf_hog_descriptor_gradients.hpp"
-#include "imgproc/xf_hog_descriptor_pm.hpp"
-#include "imgproc/xf_hog_descriptor_hist_norm.hpp"
+#include "xf_hog_descriptor_utility.hpp"
+#include "xf_hog_descriptor_gradients.hpp"
+#include "xf_hog_descriptor_pm.hpp"
+#include "xf_hog_descriptor_hist_norm.hpp"
 
 /********************************************************************************************
  * 						xFDHOG function

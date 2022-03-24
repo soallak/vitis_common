@@ -20,8 +20,8 @@
 // =========================================================================
 // Required files
 // =========================================================================
-#include "common/xf_common.hpp"
-#include "common/xf_video_mem.hpp"
+#include "../common/xf_common.hpp"
+#include "../common/xf_video_mem.hpp"
 
 // =========================================================================
 // Actual body

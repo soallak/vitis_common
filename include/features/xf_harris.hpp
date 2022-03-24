@@ -22,11 +22,11 @@
 #endif
 
 #include "hls_stream.h"
-#include "common/xf_common.hpp"
-#include "common/xf_utility.hpp"
+#include "../common/xf_common.hpp"
+#include "../common/xf_utility.hpp"
 
-#include "imgproc/xf_box_filter.hpp"
-#include "imgproc/xf_sobel.hpp"
+#include "../imgproc/xf_box_filter.hpp"
+#include "../imgproc/xf_sobel.hpp"
 #include "xf_harris_utils.hpp"
 #include "xf_max_suppression.hpp"
 #include "xf_pack_corners.hpp"

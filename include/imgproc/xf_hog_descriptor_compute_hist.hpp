@@ -21,7 +21,7 @@
 #error C++ is needed to include this header
 #endif
 
-#include "imgproc/xf_hog_descriptor_utility.hpp"
+#include "xf_hog_descriptor_utility.hpp"
 
 /*************************************************************************
  *					Macros for the histogram function
