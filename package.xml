@@ -14,10 +14,8 @@
   <buildtool_depend>ament_cmake</buildtool_depend>
   <buildtool_depend>ament_vitis</buildtool_depend>
 
-  <build_depend>ocl-icd-dev</build_depend>
   <build_depend>ocl-icd-opencl-dev</build_depend>
-  <build_depend>ocl-icd-libopencl1</build_depend>
-  <build_depend>opencl-headers</build_depend>    
+  <build_depend>opencl-headers</build_depend>
 
   <test_depend>ament_lint_auto</test_depend>
   <test_depend>ament_lint_common</test_depend>
