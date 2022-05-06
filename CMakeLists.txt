@@ -28,7 +28,8 @@ add_library(${PROJECT_NAME}_header INTERFACE)
 target_include_directories(
   ${PROJECT_NAME}_header
   INTERFACE "$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>"
-            "$<INSTALL_INTERFACE:include>" ${XILINX_HLS_HEADERS})
+            "$<INSTALL_INTERFACE:include/${PROJECT_NAME}>"
+            ${XILINX_HLS_HEADERS} ${OpenCL_INCLUDE_DIRS})
 target_link_libraries(${PROJECT_NAME}_header INTERFACE)
 
 # ##############################################################################
@@ -37,8 +38,8 @@ target_link_libraries(${PROJECT_NAME}_header INTERFACE)
 add_library(${PROJECT_NAME} SHARED src/utilities.cpp src/xcl2.cpp)
 target_include_directories(
   ${PROJECT_NAME}
-  PRIVATE include/
-  include/xcl2/
+  PUBLIC ${OpenCL_INCLUDE_DIRS}
+  PRIVATE include/ include/xcl2/
           # "$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>"
           # "$<INSTALL_INTERFACE:include>"
 )
